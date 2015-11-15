@@ -98,6 +98,6 @@
 #define RT_USING_SERIAL
 
 #define RT_USING_CPLUSPLUS
-#define RT_USING_LIBC
+//#define RT_USING_LIBC
 
 #endif
