@@ -1,61 +1,68 @@
 
-## In the ununtu 14.04 x86\_64
+## Working Environment
 
-There is an example in the linux.In the windows you can see the rt-thread's document.
+This project can cross-compiled on Ubuntu, MacOS, Windows. For more infomation about how to compile and build mdk project, you can go though [RT-Thread user Manual](http://www.rt-thread.org/download/manual/rtthread_manual.zh.pdf).
 
-### Install arm cross-compiler.
+## Build tools
 
-##### Install python and scons
+### Install python and scons
 
+##### Ubuntu
 
-	sudo apt-get install python scons
+	sudo apt-get install python2.7 scons
 
+##### MacOS
+	
+	brew install python scons
 
-##### Install gcc-arm-none-eabi
+##### Windows
 
+Download & install [python2.7](https://www.python.org/downloads/) and [scons](http://www.scons.org/)
+
+### Install gcc-arm-none-eabi 4.9
+
+##### Ubuntu
 
 	sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded
-
 	sudo apt-get update
-
 	sudo apt-get install gcc-arm-none-eabi
 
+##### MacOS
 
-### Download the rt-thread and WRTnode-stm32 in the same directory
+	brew install arm-none-eabi-gcc
 
-	git@github.com:RT-Thread/rt-thread.git
+##### Windows
 
-	git clone git@github.com:WRTnode/wrtnode2r_stm32.git\
+Download & install [arm-none-eabi-gcc](https://launchpad.net/gcc-arm-embedded/)
+
+### Clone rt-thread and WRTnode-stm32 source code
+
+	git clone https://github.com/RT-Thread/rt-thread.git
+	git clone https://github.com/WRTnode/wrtnode2r_stm32.git
 
 ### Configure the WRTnode-stm32
 
-- Open the wrtnode2r\_stm32/rtconfig.py , change the \
-	 '/Users/schumy/gcc-arm-none-eabi/bin' \
-	as "/usr/bin" in the line 16.
-- Open the wrtnode2r\_stm32/SConstruct , \
-	change "/../rtt" as "/../rt-thread" in the line 8.
+- Change **EXEC_PATH** in rtconfig.py as your cross compile tool path.
+- Change **RTT_ROOT** in SConstruct as your RT-thread root path.
 
 ### Compile and Clean
 ##### complie
 
-	scons -j 4
+	scons
 
 ##### clean
 
-	scons --clean
+	scons -c
 
 ### Work in MDK5
-##### Install software
 
-	Install python2.7 scons and set PATH in Windows
+If you want to use scons to build MDK project, make sure you **did not** open *template.uvprojx* file.
 
-##### Make MDK5 project
+- Open CMD window and run
 
-	Open CMD window.
+	scons --target=mdk5 -s
 
-	Set RTT_ROOT path in CMD window by using set RTT_ROOT=xxxx
+- After that, you will find new mdk project file *project.uvprojx*.
 
-	Run scons. scons --target=mdk5 -s
-
-	After that, you can open project.uvprojx and start coding.
+- Open it, start compile and debug.
 
